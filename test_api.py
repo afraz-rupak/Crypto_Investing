@@ -19,14 +19,14 @@ def test_root():
     
     if response.status_code == 200:
         data = response.json()
-        print(f"✅ Success!")
+        print(f"Success!")
         print(f"\nProject: {data.get('project')}")
         print(f"Description: {data.get('description')}")
         print(f"\nEndpoints available:")
         for endpoint, info in data.get('endpoints', {}).items():
             print(f"  - {endpoint}: {info.get('description')}")
     else:
-        print(f"❌ Failed: {response.text}")
+        print(f"Failed: {response.text}")
 
 def test_health():
     """Test the health check endpoint"""
@@ -39,12 +39,12 @@ def test_health():
     
     if response.status_code == 200:
         data = response.json()
-        print(f"✅ Success!")
+        print(f"Success!")
         print(f"\nStatus: {data.get('status')}")
         print(f"Message: {data.get('message')}")
         print(f"Model Status: {data.get('model_status')}")
     else:
-        print(f"❌ Failed: {response.text}")
+        print(f"Failed: {response.text}")
 
 def test_predict():
     """Test the prediction endpoint"""
@@ -57,7 +57,7 @@ def test_predict():
     
     if response.status_code == 200:
         data = response.json()
-        print(f"✅ Success!")
+        print(f"Success!")
         print(f"\nToken: {data.get('token')}")
         
         prediction = data.get('prediction', {})
@@ -77,7 +77,7 @@ def test_predict():
         print(f"  - Type: {model_info.get('model_type')}")
         print(f"  - Features used: {model_info.get('features_used')}")
     else:
-        print(f"❌ Failed: {response.text}")
+        print(f"Failed: {response.text}")
 
 if __name__ == "__main__":
     print("\n" + "="*70)
@@ -91,12 +91,12 @@ if __name__ == "__main__":
         test_predict()
         
         print("\n" + "="*70)
-        print("✅ All tests completed!")
+        print("All tests completed!")
         print("="*70)
         
     except requests.exceptions.ConnectionError:
-        print("\n❌ Error: Could not connect to API")
+        print("\nError: Could not connect to API")
         print("Make sure the API is running:")
         print("  uvicorn app.main:app --reload")
     except Exception as e:
-        print(f"\n❌ Error: {e}")
+        print(f"\nError: {e}")

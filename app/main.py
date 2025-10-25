@@ -56,30 +56,30 @@ def load_models():
         
         # Load model (should be RandomForestRegressor)
         model = joblib.load(BEST_MODEL_PATH)
-        logger.info(f"✓ Model loaded: {type(model).__name__}")
+        logger.info(f"Model loaded: {type(model).__name__}")
         
         # Verify it's the correct type
         if not hasattr(model, 'predict'):
-            logger.error(f"❌ Model file contains {type(model)}, not a trained model!")
+            logger.error(f"Model file contains {type(model)}, not a trained model!")
             return False
         
         # Load scaler (should be RobustScaler)
         scaler = joblib.load(SCALER_PATH)
-        logger.info(f"✓ Scaler loaded: {type(scaler).__name__}")
+        logger.info(f"Scaler loaded: {type(scaler).__name__}")
         
         # Load feature columns
         feature_columns = joblib.load(FEATURE_COLUMNS_PATH)
-        logger.info(f"✓ Feature columns loaded: {len(feature_columns)} features")
+        logger.info(f"Feature columns loaded: {len(feature_columns)} features")
         
         # Load metadata
         try:
             model_metadata = joblib.load(METADATA_PATH)
-            logger.info(f"✓ Model metadata loaded")
+            logger.info(f"Model metadata loaded")
             logger.info(f"   Prediction type: {model_metadata.get('prediction_type', 'unknown')}")
-            logger.info(f"   Test R²: {model_metadata.get('test_r2', 'N/A')}")
+            logger.info(f"   Test R2: {model_metadata.get('test_r2', 'N/A')}")
         except:
             model_metadata = {'algorithm': 'RandomForest', 'prediction_type': 'returns'}
-            logger.warning("⚠️  Metadata not found, using defaults")
+            logger.warning("Metadata not found, using defaults")
         
         return True
     except Exception as e:
@@ -129,7 +129,7 @@ def fetch_latest_bitcoin_data(days=60):
         # Keep only needed columns
         df = df[['timestamp', 'open', 'high', 'low', 'close', 'volume']]
         
-        logger.info(f"✓ Fetched {len(df)} days of data")
+        logger.info(f"Fetched {len(df)} days of data")
         return df
         
     except Exception as e:
@@ -196,7 +196,7 @@ async def startup_event():
     if not success:
         logger.error("Failed to load models on startup!")
     else:
-        logger.info("✓ All models loaded successfully!")
+        logger.info("All models loaded successfully!")
 
 
 @app.get("/")
@@ -274,7 +274,7 @@ async def health_check():
         status_code=200,
         content={
             "status": "healthy",
-            "message": "Welcome to Bitcoin Price Prediction API! 🚀",
+            "message": "Welcome to Bitcoin Price Prediction API!",
             "model_status": model_status,
             "model_type": "Return-Based RandomForest",
             "timestamp": datetime.now().isoformat(),
@@ -384,7 +384,7 @@ async def predict(token: str):
             "timestamp": datetime.now().isoformat()
         }
         
-        logger.info(f"✓ Prediction successful: Return={predicted_return:.4%}, Price=${predicted_high_price:.2f}")
+        logger.info(f"Prediction successful: Return={predicted_return:.4%}, Price=${predicted_high_price:.2f}")
         return response
         
     except HTTPException:

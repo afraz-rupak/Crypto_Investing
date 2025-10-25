@@ -10,6 +10,7 @@ import pandas as pd
 import time
 from datetime import datetime, timedelta
 import json
+import os
 
 def fetch_kraken_ohlc(pair='XBTUSD', interval=1440, since=None):
     """
@@ -198,12 +199,16 @@ def main():
     # Save to CSV
     output_file = 'bitcoin_5years_daily.csv'
     df.to_csv(output_file, index=False)
-    print(f"\n✓ Data saved to: {output_file}")
+    file_size = os.path.getsize(output_file) / 1024
+    print(f"\nData saved to: {output_file}")
+    print(f"  File size: {file_size:.2f} KB")
+    print(f"  Records: {len(df)}")
     
-    # Also save as parquet for efficiency (optional)
-    output_parquet = 'bitcoin_5years_daily.parquet'
+    # Also save as parquet for faster loading
+    output_parquet = output_file.replace('.csv', '.parquet')
     df.to_parquet(output_parquet, index=False)
-    print(f"✓ Data also saved to: {output_parquet}")
+    file_size_parquet = os.path.getsize(output_parquet) / 1024
+    print(f"Data also saved to: {output_parquet}")
     
     print("\n" + "="*60)
     print("Data fetching complete!")
