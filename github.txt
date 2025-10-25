@@ -1,0 +1,16 @@
+https://github.com/YOUR_USERNAME/Crypto_Investing
+
+Replace YOUR_USERNAME with your actual GitHub username after creating the repository.
+
+To create the repository:
+1. Go to https://github.com/new
+2. Name it: Crypto_Investing
+3. Make it public
+4. Don't initialize with README (you already have one)
+5. Push your code using:
+   git init
+   git add .
+   git commit -m "Initial commit: Bitcoin Price Prediction API"
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/Crypto_Investing.git
+   git push -u origin main
