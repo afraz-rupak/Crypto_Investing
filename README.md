@@ -1,6 +1,45 @@
 # Bitcoin Price Prediction API
 
-A Machine Learning-based REST API for predicting Bitcoin's HIGH price for the next trading day using a Return-Based RandomForest model.
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104.0-009688.svg)](https://fastapi.tiangolo.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Deployed on Render](https://img.shields.io/badge/Deployed%20on-Render-46E3B7.svg)](https://crypto-investing.onrender.com/)
+
+A Machine Learning-based REST API for predicting Bitcoin's HIGH price for the next trading day using a Return-Based RandomForest model with 81.5% accuracy.
+
+## 🚀 Live Demo
+
+**API is live at**: [https://crypto-investing.onrender.com/](https://crypto-investing.onrender.com/)
+
+Try it now:
+```bash
+# Get Bitcoin prediction
+curl https://crypto-investing.onrender.com/predict/bitcoin
+
+# Check API health
+curl https://crypto-investing.onrender.com/health/
+
+# View interactive docs
+open https://crypto-investing.onrender.com/docs
+```
+
+## 📊 Quick Example
+
+```python
+import requests
+
+response = requests.get('https://crypto-investing.onrender.com/predict/bitcoin')
+data = response.json()
+
+print(f"Current HIGH: ${data['current_data']['current_high_price']:,.2f}")
+print(f"Predicted HIGH: ${data['prediction']['predicted_high_price']:,.2f}")
+print(f"Change: {data['prediction']['predicted_change_from_close']}")
+
+# Output:
+# Current HIGH: $110,644.98
+# Predicted HIGH: $110,649.96
+# Change: +0.24%
+```
 
 ## Table of Contents
 
