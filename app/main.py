@@ -1,12 +1,3 @@
-"""
-FastAPI application for Bitcoin price prediction.
-
-This application provides endpoints for:
-- Project information and API documentation
-- Health check
-- Bitcoin HIGH price prediction for the next day
-"""
-
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -285,18 +276,7 @@ async def health_check():
 
 @app.get("/predict/{token}")
 async def predict(token: str):
-    """
-    Predict HIGH price for the next day using return-based model.
     
-    The model predicts the PERCENTAGE CHANGE (return) and converts it to price:
-    predicted_high = current_high * (1 + predicted_return)
-    
-    Args:
-        token: Token symbol (e.g., 'bitcoin', 'btc')
-    
-    Returns:
-        JSON with prediction and metadata
-    """
     # Validate token
     token_lower = token.lower()
     if token_lower not in ['bitcoin', 'btc', 'btc-usd']:
@@ -427,4 +407,6 @@ async def model_info():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Get port from environment variable (Render provides this)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
